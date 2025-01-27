@@ -17,15 +17,7 @@ const images = [
   "https://media.giphy.com/media/scGLs3atZgUCevRxn1/giphy.gif",
   "https://media.giphy.com/media/lUgk7pXNha2vIWGLqK/giphy.gif"
 ];
-const noImages = ["https://media.giphy.com/media/L3iXjPw1GoEk0nioqY/giphy.gif",
-  "https://media.giphy.com/media/TNUgpZJinuIK23YrE6/giphy.gif",
-  "https://media.giphy.com/media/w8vfi4nbMYcnIzhIis/giphy.gif",
-  "https://media.giphy.com/media/5ouxQsY5V5as4UwpRo/giphy.gif",
-  "https://media.giphy.com/media/J2B9nZDEbrJv8gPB1d/giphy.gif",
-  "https://media.giphy.com/media/qJQq6aNmQegRAnpqLH/giphy.gif",
-  "https://media.giphy.com/media/ftY6QnihAy0zSZwxlm/giphy.gif",
-  "https://media.giphy.com/media/8j4uAJzZzLHwAmKE9y/giphy.gif"
-]
+const noImage = "https://media.giphy.com/media/L3iXjPw1GoEk0nioqY/giphy.gif"
 
 // Arrays of possible texts
 const loveTexts = [
@@ -54,15 +46,20 @@ const questionTexts = [
   "DO YOU LOVE ME MORE THAN ANYTHING ELSE? 💖"
 ];
 
+/**
+ * Function to move the button to a random position on the screen
+ * and display a random question text
+ * @returns {void}
+ */
 function moveButton() {
   const randomQuestionText = questionTexts[Math.floor(Math.random() * questionTexts.length)];
   questionText.textContent = randomQuestionText;
   loveText.textContent = "I LOVE YOU SOOOO MUCH!, I CAN'T LIVE WITHOUT YOU! 😭";
 
-  const randomIndex = Math.floor(Math.random() * noImages.length);
-  const selectedImage = noImages[randomIndex];
-  image.src = selectedImage;
-
+  if (image.src !== noImage) {
+    image.src = noImage;
+  }
+  
   const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
   const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
 
@@ -71,6 +68,10 @@ function moveButton() {
   noButton.style.top = `${y}px`;
 }
 
+/**
+ * Function to change the image and display a random love text
+ * @returns {void}
+ */
 function changeImage() {
   const randomIndex = Math.floor(Math.random() * images.length);
   const selectedImage = images[randomIndex];
@@ -82,8 +83,8 @@ function changeImage() {
   questionText.textContent = '';
 }
 
-noButton.addEventListener('mouseover', moveButton); // For desktop
-noButton.addEventListener('touchstart', moveButton); // For mobile
-noButton.addEventListener('click', moveButton); // Fallback for both
+noButton.addEventListener('mouseover', moveButton);
+noButton.addEventListener('touchstart', moveButton);
+noButton.addEventListener('click', moveButton); 
 
 yesButton.addEventListener('click', changeImage);
